@@ -6,10 +6,8 @@ on:
       - main
       - develop
       - release*
-    paths:
-      - 'src/webapp/**'
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    # tags:
+    #   - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
   # Sequence of patterns matched against refs/tags
 
@@ -18,10 +16,8 @@ on:
       - main
       - develop
       - release*
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
-    paths:
-      - 'src/webapp/**'
+    # tags:
+    #   - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   prettier-lint:
