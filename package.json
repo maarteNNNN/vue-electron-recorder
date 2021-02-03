@@ -12,7 +12,7 @@
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "npm run lint:js & npm run lint:scss",
     "lint:js": "eslint --ext .js,.vue src --fix",
-    "lint:scss": "prettier --write 'src/**/*.{scss, css}'"
+    "lint:scss": "prettier --write src/*"
   },
   "main": "background.js",
   "dependencies": {
