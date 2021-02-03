@@ -15,7 +15,7 @@
       p {{ timer || '00:00:00:000' }}
     .row
       p(v-if="error" style="color: red") {{ error.message }}
-      p(v-else) File saved: {{ message && message.filePath }}
+      p(v-if="message") File saved: {{ message && message.filePath }}
 </template>
 
 <script>
@@ -42,10 +42,10 @@ export default {
   },
   mounted() {
     ipcRenderer.on('file-save', (event, { error, message }) => {
+      this.message = null
+      this.error = null
       if (error) {
-        console.log(error)
         this.error = error
-        // throw Error(error)
       } else {
         this.message = message
       }
