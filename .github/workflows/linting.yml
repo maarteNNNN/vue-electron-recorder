@@ -1,4 +1,4 @@
-name: Webapp Linting
+name: Linting
 
 on:
   push:
