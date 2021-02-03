@@ -15,7 +15,7 @@
       p {{ timer || '00:00:00:000' }}
     .row
       p(v-if="error" style="color: red") {{ error.message }}
-      p(v-else) File saved: {{ message.filePath }}
+      p(v-else) File saved: {{ message && message.filePath }}
 </template>
 
 <script>
