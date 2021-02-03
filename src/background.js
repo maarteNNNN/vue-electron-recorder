@@ -54,10 +54,8 @@ app.on('activate', () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   // Handle file save
-  try {
-    ipcMain.on('file-save', async (event, arg) => {
-      console.log(arg)
-
+  ipcMain.on('file-save', async (event, arg) => {
+    try {
       const location = await dialog.showSaveDialog({
         title: 'Save recording',
         buttonLabel: 'Save',
@@ -69,27 +67,28 @@ app.on('ready', async () => {
         ],
       })
 
-      if (location.canceled) {
-        console.log('operation canceled')
-      } else {
+      if (!location.canceled) {
+        // Save file
         const replace = new RegExp(`data:${arg.audio.type};base64,`)
 
         fs.writeFile(
           location.filePath.toString(),
           arg.audio.dataURL.replace(replace, ''),
           'base64',
-          err => {
+          async err => {
             if (err) console.error(err)
             console.log('Saved!')
+            await event.reply('file-save', { message: location })
           },
         )
-      }
 
-      event.reply('file-save', 'pong')
-    })
-  } catch (e) {
-    throw new Error(e)
-  }
+        return
+      }
+      throw new Error('Saving file was canceled')
+    } catch (e) {
+      event.reply('file-save', { error: e })
+    }
+  })
 
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools

@@ -13,6 +13,9 @@
           )
     .row
       p {{ timer || '00:00:00:000' }}
+    .row
+      p(v-if="error" style="color: red") {{ error.message }}
+      p(v-else) File saved: {{ message.filePath }}
 </template>
 
 <script>
@@ -33,7 +36,20 @@ export default {
       analyserPercentage: null,
       timerInterval: null,
       analyserInterval: null,
+      error: null,
+      message: null,
     }
+  },
+  mounted() {
+    ipcRenderer.on('file-save', (event, { error, message }) => {
+      if (error) {
+        console.log(error)
+        this.error = error
+        // throw Error(error)
+      } else {
+        this.message = message
+      }
+    })
   },
   methods: {
     async record() {
@@ -52,8 +68,6 @@ export default {
               },
             }
 
-            console.log(file)
-
             ipcRenderer.send('file-save', file)
           })
 
@@ -61,6 +75,7 @@ export default {
           clearInterval(this.timerInterval)
           this.analyserPercentage = 0
         })
+
         return
       }
 
