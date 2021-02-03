@@ -1,5 +1,5 @@
 {
-  "name": "vue-recorder",
+  "name": "vue-electron-recorder",
   "version": "0.1.0",
   "private": true,
   "scripts": {
