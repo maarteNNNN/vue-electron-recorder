@@ -1,0 +1,46 @@
+name: Webapp Linting
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - release*
+    paths:
+      - 'src/webapp/**'
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+  # Sequence of patterns matched against refs/tags
+
+  pull_request:
+    branches:
+      - master
+      - develop
+      - release*
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    paths:
+      - 'src/webapp/**'
+
+jobs:
+  prettier-lint:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: webapp-linting
+        run: |
+          ls
+          npm ci
+          npm run lint
+        env:
+          CI: true
