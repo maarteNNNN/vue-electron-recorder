@@ -7,7 +7,7 @@
 import Recorder from './components/Recorder.vue'
 
 export default {
-  name: 'Appp',
+  name: 'App',
   components: {
     Recorder,
   },
