@@ -1,6 +1,6 @@
 {
   "name": "vue-electron-recorder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "An audio recorder using RecordRTC, Electron and Vue. It records audio and saves it to the computer.",
   "author": {
