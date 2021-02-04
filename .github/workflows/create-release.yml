@@ -31,7 +31,6 @@ jobs:
           sudo apt install --install-recommends winehq-stable
       - name: Install and build electron
         run: |
-          ls
           npm ci
           npm run build
         env:
@@ -41,8 +40,6 @@ jobs:
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Zip Release # This would actually build your project, using zip for an example artifact
         run: |
-          ls
-          ls dist_electron/
           zip --junk-paths release-${{ steps.get_version.outputs.VERSION }}.zip dist_electron/vue-electron-recorder*
       - name: Create Release
         id: create_release
