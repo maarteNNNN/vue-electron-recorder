@@ -2,9 +2,13 @@
   "name": "vue-electron-recorder",
   "version": "0.0.1",
   "private": true,
+  "description": "An audio recorder using RecordRTC, Electron and Vue. It records audio and saves it to the computer.",
+  "author": {
+    "name": "Maarten Coppens",
+    "email": "martinuske@gmail.com"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
@@ -12,7 +16,11 @@
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "npm run lint:js & npm run lint:scss",
     "lint:js": "eslint --ext .js,.vue src --fix",
-    "lint:scss": "prettier --write src/*"
+    "lint:scss": "prettier --write src/*",
+    "build": "npm run build:windows && npm run build:linux",
+    "build:windows": "npm run electron:build -- --win nsis",
+    "build:mac": "npm run electron:build -- --mac",
+    "build:linux": "npm run electron:build -- --linux deb --linux appimage --linux snap"
   },
   "main": "background.js",
   "dependencies": {

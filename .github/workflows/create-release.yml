@@ -26,14 +26,17 @@ jobs:
         run: |
           ls
           npm ci
-          npm run electron:build
+          npm run build
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Build project # This would actually build your project, using zip for an example artifact
         run: |
-          zip --junk-paths release-${{ github.event.release.tag_name }}-appimage.zip dist_electron/vue-recorder*
+          zip --junk-paths release-${{ steps.get_version.outputs.VERSION }}-appimage.zip dist_electron/vue-electron-recorder*
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -41,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ steps.get_version.outputs.VERSION }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
@@ -51,6 +54,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./release-${{ github.event.release.tag_name }}-appimage.zip
-          asset_name: release-${{ github.event.release.tag_name }}.zip
+          asset_path: ./release-${{ steps.get_version.outputs.VERSION }}-appimage.zip
+          asset_name: release-${{ steps.get_version.outputs.VERSION }}.zip
           asset_content_type: application/zip
