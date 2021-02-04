@@ -22,6 +22,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install wine (for Windows build)
+        run: |
+          sudo dpkg --add-architecture i386
+          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+          sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+          sudo apt install --install-recommends winehq-stable
       - name: Install and build electron
         run: |
           ls
@@ -34,7 +41,7 @@ jobs:
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
-      - name: Build project # This would actually build your project, using zip for an example artifact
+      - name: Zip project # This would actually build your project, using zip for an example artifact
         run: |
           zip --junk-paths release-${{ steps.get_version.outputs.VERSION }}-appimage.zip dist_electron/vue-electron-recorder*
       - name: Create Release
