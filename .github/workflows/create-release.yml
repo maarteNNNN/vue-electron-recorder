@@ -73,7 +73,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./dist_electron/release-${{ steps.get_version.outputs.VERSION }}-snap.zip
+          asset_path: ./release-${{ steps.get_version.outputs.VERSION }}-snap.zip
           asset_name: release-${{ steps.get_version.outputs.VERSION }}-snap.zip
           asset_content_type: application/zip
 
@@ -84,7 +84,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./dist_electron/release-${{ steps.get_version.outputs.VERSION }}-appimage.zip
+          asset_path: ./release-${{ steps.get_version.outputs.VERSION }}-appimage.zip
           asset_name: release-${{ steps.get_version.outputs.VERSION }}-appimage.zip
           asset_content_type: application/zip
 
@@ -95,7 +95,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./dist_electron/release-${{ steps.get_version.outputs.VERSION }}-deb.zip
+          asset_path: ./release-${{ steps.get_version.outputs.VERSION }}-deb.zip
           asset_name: release-${{ steps.get_version.outputs.VERSION }}-deb.zip
           asset_content_type: application/zip
 
@@ -106,6 +106,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./dist_electron/release-${{ steps.get_version.outputs.VERSION }}-windows.zip
+          asset_path: ./release-${{ steps.get_version.outputs.VERSION }}-windows.zip
           asset_name: release-${{ steps.get_version.outputs.VERSION }}-windows.zip
           asset_content_type: application/zip
