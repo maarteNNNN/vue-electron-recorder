@@ -17,10 +17,8 @@
     "lint:fix": "npm run lint:js & npm run lint:scss",
     "lint:js": "eslint --ext .js,.vue src --fix",
     "lint:scss": "prettier --write src/*",
-    "build": "npm run build:windows && npm run build:linux",
-    "build:windows": "npm run electron:build -- --win nsis",
-    "build:mac": "npm run electron:build -- --mac",
-    "build:linux": "npm run electron:build -- --linux deb --linux appimage --linux snap"
+    "build": "npm run electron:build -- --win nsis --linux deb --linux appimage --linux snap",
+    "build:mac": "npm run electron:build -- --mac"
   },
   "main": "background.js",
   "dependencies": {
