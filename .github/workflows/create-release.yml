@@ -43,6 +43,8 @@ jobs:
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Zip project # This would actually build your project, using zip for an example artifact
         run: |
+          ls
+          ls dist_electron/
           zip --junk-paths release-${{ steps.get_version.outputs.VERSION }}-appimage.zip dist_electron/vue-electron-recorder*
       - name: Create Release
         id: create_release
